@@ -20,10 +20,10 @@ namespace CMP1903M_A01_2223
 
             // deal two cards to each player
             List<string> player1Hand = new List<string>();
-            List<string> player2Hand = new List<string>();
+       
 
             // put the players' hands into a list for easier processing
-            List<List<string>> playerHands = new List<List<string>> { player1Hand, player2Hand };
+            List<List<string>> playerHands = new List<List<string>> { player1Hand,};
 
             // deal two cards to each player
             foreach (List<string> hand in playerHands)
