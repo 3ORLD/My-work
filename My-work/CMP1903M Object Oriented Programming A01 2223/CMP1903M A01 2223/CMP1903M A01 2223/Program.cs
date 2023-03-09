@@ -8,86 +8,32 @@ using System.Threading.Tasks;
 
 namespace CMP1903M_A01_2223
 {
-    class Program
+    public class Testing
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            // create a deck of cards
-            List<string> cards = CreateDeck();
+            Pack pack = new Pack();
 
-            // shuffle the deck
-            Shuffle(cards);
+            Console.WriteLine("Initial pack:");
+            Console.WriteLine(string.Join(", ", pack));
 
-            // deal two cards to each player
-            List<string> player1Hand = new List<string>();
-       
+            Console.WriteLine("\nFisher-Yates shuffle:");
+            pack.ShuffleCardPack(2);
+            Console.WriteLine(string.Join(", ", pack));
 
-            // put the players' hands into a list for easier processing
-            List<List<string>> playerHands = new List<List<string>> { player1Hand,};
+            Console.WriteLine("\nRiffle shuffle:");
+            pack.ShuffleCardPack(3);
+            Console.WriteLine(string.Join(", ", pack));
 
-            // deal two cards to each player
-            foreach (List<string> hand in playerHands)
+            Console.WriteLine("\nNo shuffle:");
+            pack.ShuffleCardPack(1);
+            Console.WriteLine(string.Join(", ", pack));
+
+
+            Console.WriteLine("\nDealing one card after each shuffle:");
+            for (int i = 0; i < 3; i++)
             {
-                hand.Add(cards[0]);
-                cards.RemoveAt(0);
-                hand.Add(cards[0]);
-                cards.RemoveAt(0);
-                hand.Add(cards[0]);
-                cards.RemoveAt(0);
-                hand.Add(cards[0]);
-                cards.RemoveAt(0);
-                hand.Add(cards[0]);
-                cards.RemoveAt(0);
-                
-            }
-
-            // print the hands
-            Console.WriteLine("Player 1's hand: ");
-            PrintHand(player1Hand);
-
-            // wait for user input before closing the console window
-            Console.ReadLine();
-        }
-
-        private static List<string> CreateDeck()
-        {
-            List<string> cards = new List<string>();
-
-            // create the suits and ranks
-            string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
-            string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
-
-            // create the cards
-            foreach (string suit in suits)
-            {
-                foreach (string rank in ranks)
-                {
-                    cards.Add(rank + " of " + suit);
-                }
-            }
-
-            return cards;
-        }
-
-        private static void Shuffle(List<string> deck)
-        {
-            Random rng = new Random();
-
-            int n = deck.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                string temp = deck[k];
-                deck[k] = deck[n];
-                deck[n] = temp;
-            }
-        }
-
-        private static void PrintHand(List<string> hand)
-        {
-            foreach (string card in hand)
-            {
+                Card card = pack.DealCard();
                 Console.WriteLine(card);
             }
         }
